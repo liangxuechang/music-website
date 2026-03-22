@@ -13,7 +13,6 @@
 import { defineComponent, ref, getCurrentInstance, computed, watch } from "vue";
 import { useStore } from "vuex";
 import { HttpManager } from "@/api";
-import { onMounted } from 'vue';
 
 export default defineComponent({
   setup() {
@@ -47,6 +46,7 @@ export default defineComponent({
     const volume = computed(() => store.getters.volume); // 音量
     const changeTime = computed(() => store.getters.changeTime); // 指定播放时刻
     const autoNext = computed(() => store.getters.autoNext); // 用于触发自动播放下一首
+
     // 监听播放还是暂停
     watch(isPlay, () => togglePlay());
     // 跳到指定时刻播放
@@ -79,6 +79,7 @@ export default defineComponent({
       proxy.$store.commit("setCurTime", 0);
       proxy.$store.commit("setAutoNext", !autoNext.value);
     }
+
 
 
 

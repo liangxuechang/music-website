@@ -90,7 +90,16 @@ const HttpManager = {
     // 返回歌单里指定歌单ID的歌曲
     getListSongOfSongId: (songListId) => get(`listSong/detail?songListId=${songListId}`),
     // 删除歌单里的歌曲
-    deleteListSong: (songId) => get(`listSong/delete?songId=${songId}`)
+    deleteListSong: (songId) => get(`listSong/delete?songId=${songId}`),
+
+    // =======================> 听歌记录 API
+    // 分页获取听歌记录
+    getPlayRecordPage: (pageNum, pageSize, username, songName) => {
+        let url = `playRecord/page?pageNum=${pageNum}&pageSize=${pageSize}`;
+        if (username) url += `&username=${encodeURIComponent(username)}`;
+        if (songName) url += `&songName=${encodeURIComponent(songName)}`;
+        return get(url);
+    }
 
 }
 

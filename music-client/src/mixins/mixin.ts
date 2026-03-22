@@ -50,6 +50,19 @@ export default function () {
   function playMusic({ id, url, pic, index, name, lyric, currentSongList }) {
     const songTitle = getSongTitle(name);
     const singerName = getSingerName(name);
+    
+    // 用户点击播放时，立即上报听歌记录（用户已登录时）
+    const userId = store.getters.userId;
+    if (userId && id) {
+      HttpManager.addPlayRecord({
+        userId: parseInt(userId),
+        songId: parseInt(id),
+        songName: songTitle.trim()
+      }).catch(err => {
+        console.error("上报听歌记录失败:", err);
+      });
+    }
+    
     proxy.$store.dispatch("playMusic", {
       id,
       url,
