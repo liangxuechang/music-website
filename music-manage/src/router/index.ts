@@ -45,6 +45,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/Collect',
         component: () => import('@/views/CollectPage.vue'),
         meta: { title: 'Collect' }
+      },
+      {
+        path: '/UserPlayRecord',
+        component: () => import('@/views/UserPlayRecordPage.vue'),
+        meta: { title: 'UserPlayRecord' }
       }
     ]
   },

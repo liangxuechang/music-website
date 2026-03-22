@@ -68,6 +68,7 @@
 - 歌词同步显示
 - 音乐收藏、下载、拖动控制、音量控制
 - 后台对用户、歌曲、歌手、歌单信息的管理
+- **用户播放行为记录**：记录用户在什么时间听了什么歌曲，管理员可在后台查看
 
 <br/>
 
@@ -129,7 +130,10 @@ git clone git@gitee.com:Yin-hongwei/music-website.git
 1）创建数据库
 将 `music-website/music-server/sql` 文件夹中的 `tp_music.sql` 文件导入数据库。
 
-2）修改用户名密码
+2）导入用户播放记录表（可选）
+如需使用用户播放行为记录功能，请将 `music-website/music-server/sql/user_play_record.sql` 文件导入数据库。
+
+3）修改用户名密码
 修改 `music-website/music-server/src/main/resources/application.properties` 文件里的 `spring.datasource.username` 和 `spring.datasource.password`；
 
 ### 4、启动项目
