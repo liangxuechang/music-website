@@ -90,7 +90,11 @@ const HttpManager = {
     // 返回歌单里指定歌单ID的歌曲
     getListSongOfSongId: (songListId) => get(`listSong/detail?songListId=${songListId}`),
     // 删除歌单里的歌曲
-    deleteListSong: (songId) => get(`listSong/delete?songId=${songId}`)
+    deleteListSong: (songId) => get(`listSong/delete?songId=${songId}`),
+
+    // =======================> 用户听歌记录 API 完成
+    // 获取听歌记录列表
+    getListenRecordList: (username, songName) => get(`listenRecord/list?username=${username || ''}&songName=${songName || ''}`)
 
 }
 
