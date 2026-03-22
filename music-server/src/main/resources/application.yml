@@ -12,6 +12,8 @@ spring:
             class: javax.net.ssl.SSLSocketFactory
           starttls:
             enable: true
+  profiles:
+    active: dev
 mail:
   address:   # 开启那个服务的邮箱
 
