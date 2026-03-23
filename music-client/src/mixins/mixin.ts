@@ -47,7 +47,7 @@ export default function () {
   }
 
   // 播放
-  function playMusic({ id, url, pic, index, name, lyric, currentSongList }) {
+  async function playMusic({ id, url, pic, index, name, lyric, currentSongList }) {
     const songTitle = getSongTitle(name);
     const singerName = getSingerName(name);
     proxy.$store.dispatch("playMusic", {
@@ -60,6 +60,17 @@ export default function () {
       lyric,
       currentSongList,
     });
+    if (token.value) {
+      const userId = computed(() => store.getters.userId);
+      const username = computed(() => store.getters.username);
+      await HttpManager.addListenRecord({
+        userId: userId.value,
+        username: username.value,
+        songId: id,
+        songName: songTitle,
+        singerName: singerName
+      });
+    }
   }
 
   function getFileName(path) {

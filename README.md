@@ -68,6 +68,61 @@
 - 歌词同步显示
 - 音乐收藏、下载、拖动控制、音量控制
 - 后台对用户、歌曲、歌手、歌单信息的管理
+- 用户听歌记录追踪（记录用户在什么时间听了什么歌曲）
+
+<br/>
+
+## 新增功能：用户听歌记录追踪
+
+### 功能说明
+
+该功能用于追踪和记录用户的听歌行为，管理员可以在后台管理系统中查看用户的听歌记录。
+
+### 功能特点
+
+1. **自动记录**：用户在前台播放歌曲时，系统自动记录用户的听歌行为
+2. **记录内容**：包含用户账号、歌曲名称、歌手名称、听歌时间
+3. **后台管理**：管理员登录后台后，可在"用户行为"菜单中查看听歌记录列表
+4. **筛选功能**：支持按用户名、歌曲名称进行筛选
+5. **分页显示**：记录列表支持分页展示
+
+### 数据库配置
+
+在原有数据库基础上，需要新增 `user_listen_record` 表。执行以下 SQL 语句：
+
+```sql
+-- 用户听歌记录表
+DROP TABLE IF EXISTS `user_listen_record`;
+CREATE TABLE `user_listen_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录ID',
+  `user_id` int(10) unsigned NOT NULL COMMENT '用户ID',
+  `username` varchar(255) NOT NULL COMMENT '用户名',
+  `song_id` int(10) unsigned NOT NULL COMMENT '歌曲ID',
+  `song_name` varchar(255) NOT NULL COMMENT '歌曲名称',
+  `singer_name` varchar(255) DEFAULT NULL COMMENT '歌手名称',
+  `listen_time` datetime NOT NULL COMMENT '听歌时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_song_id` (`song_id`),
+  KEY `idx_listen_time` (`listen_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户听歌记录表';
+```
+
+SQL 文件位置：`music-server/sql/user_listen_record.sql`
+
+### API 接口
+
+| 接口路径 | 方法 | 说明 |
+|---------|------|------|
+| `/listenRecord/add` | POST | 添加听歌记录（前台调用） |
+| `/listenRecord/list` | GET | 获取听歌记录列表（后台管理调用） |
+
+### 使用说明
+
+1. 用户在前台登录后播放歌曲，系统会自动记录听歌行为
+2. 管理员登录后台管理系统，点击左侧菜单"用户行为"
+3. 在用户行为页面可以查看所有用户的听歌记录
+4. 可以通过用户名或歌曲名称进行筛选查询
 
 <br/>
 
