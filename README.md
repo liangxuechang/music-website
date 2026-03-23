@@ -68,6 +68,12 @@
 - 歌词同步显示
 - 音乐收藏、下载、拖动控制、音量控制
 - 后台对用户、歌曲、歌手、歌单信息的管理
+- 用户听歌记录追踪（新增功能）
+  - 用户播放歌曲时自动记录听歌行为
+  - 记录用户账号、听歌时间、歌曲名称
+  - 后台管理系统新增"用户行为"菜单查看听歌记录
+  - 支持按用户名、歌曲名称筛选
+  - 支持分页显示听歌记录
 
 <br/>
 
@@ -129,7 +135,24 @@ git clone git@gitee.com:Yin-hongwei/music-website.git
 1）创建数据库
 将 `music-website/music-server/sql` 文件夹中的 `tp_music.sql` 文件导入数据库。
 
-2）修改用户名密码
+2）创建听歌记录表（新增功能）
+执行以下SQL语句创建用户听歌记录表：
+```sql
+DROP TABLE IF EXISTS `play_record`;
+CREATE TABLE `play_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `user_id` int(10) unsigned NOT NULL COMMENT '用户ID',
+  `song_id` int(10) unsigned NOT NULL COMMENT '歌曲ID',
+  `song_name` varchar(100) NOT NULL COMMENT '歌曲名称',
+  `create_time` datetime NOT NULL COMMENT '听歌时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_song_id` (`song_id`),
+  KEY `idx_create_time` (`create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户听歌记录表';
+```
+
+3）修改用户名密码
 修改 `music-website/music-server/src/main/resources/application.properties` 文件里的 `spring.datasource.username` 和 `spring.datasource.password`；
 
 ### 4、启动项目
