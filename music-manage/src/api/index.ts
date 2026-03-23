@@ -90,7 +90,17 @@ const HttpManager = {
     // 返回歌单里指定歌单ID的歌曲
     getListSongOfSongId: (songListId) => get(`listSong/detail?songListId=${songListId}`),
     // 删除歌单里的歌曲
-    deleteListSong: (songId) => get(`listSong/delete?songId=${songId}`)
+    deleteListSong: (songId) => get(`listSong/delete?songId=${songId}`),
+
+    // =======================> 用户播放记录 API
+    // 获取所有用户播放记录
+    getAllUserPlayRecord: () => get(`userPlayRecord`),
+    // 获取指定用户ID的播放记录
+    getUserPlayRecordOfUserId: (userId) => get(`userPlayRecord/user/detail?userId=${userId}`),
+    // 获取指定歌曲ID的播放记录
+    getUserPlayRecordOfSongId: (songId) => get(`userPlayRecord/song/detail?songId=${songId}`),
+    // 删除播放记录
+    deleteUserPlayRecord: (id) => deletes(`userPlayRecord/delete?id=${id}`)
 
 }
 

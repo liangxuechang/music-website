@@ -60,6 +60,21 @@ export default function () {
       lyric,
       currentSongList,
     });
+
+    // 记录用户播放行为
+    recordUserPlay(id);
+  }
+
+  // 记录用户播放行为
+  async function recordUserPlay(songId) {
+    const userId = store.getters.userId;
+    if (userId) {
+      try {
+        await HttpManager.recordUserPlay({ userId, songId });
+      } catch (error) {
+        console.error("记录播放行为失败:", error);
+      }
+    }
   }
 
   function getFileName(path) {

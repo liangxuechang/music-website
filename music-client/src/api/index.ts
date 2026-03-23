@@ -90,7 +90,11 @@ const HttpManager = {
   insertUserSupport:({commentId,userId}) => post(`userSupport/insert`, {commentId,userId}),
 
   //获取所有的海报
-  getBannerList: () => get("banner/getAllBanner")
+  getBannerList: () => get("banner/getAllBanner"),
+
+  // =======================> 用户播放记录 API
+  // 记录用户播放行为
+  recordUserPlay: ({ userId, songId }) => post(`userPlayRecord/add`, { userId, songId }),
 };
 
 
